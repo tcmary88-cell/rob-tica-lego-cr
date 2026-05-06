@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robótica - MSc. Mary Cruz CM</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --spike-yellow: #FFD500;
+            --spike-blue: #006CB7;
+            --spike-purple: #923D98;
+            --bg-celeste: #e3f2fd;
+            --card-white: #ffffff;
+            --text-dark: #0d47a1;
+            --success: #2e7d32;
+            --error: #c62828;
+        }
+
+        /* INGRESO DE GRUPO */
+        #login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--spike-blue); z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            color: white; text-align: center;
+        }
+        .login-box {
+            background: white; padding: 40px; border-radius: 20px;
+            color: var(--text-dark); box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 500px; width: 90%;
+        }
+        .login-box input {
+            width: 80%; padding: 15px; margin: 20px 0;
+            border: 2px solid var(--spike-blue); border-radius: 10px;
+            font-size: 1.2rem; text-align: center;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0; background-color: var(--bg-celeste);
+            color: var(--text-dark); line-height: 1.6;
+        }
+
+        /* BARRA LATERAL IZQUIERDA */
+        .sidebar-left {
+            position: fixed; left: 20px; top: 350px;
+            width: 180px; display: flex; flex-direction: column; gap: 15px;
+            z-index: 900;
+        }
+        .btn-side {
+            background: linear-gradient(135deg, white, #f9f9f9);
+            border: 3px solid var(--spike-blue);
+            color: var(--text-dark); padding: 12px; border-radius: 15px;
+            font-weight: bold; font-size: 0.85rem; text-decoration: none;
+            text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .btn-side:hover { transform: scale(1.1); background: var(--spike-blue); color: white; }
+
+        header {
+            width: 100%; background: linear-gradient(rgba(0, 108, 183, 0.9), rgba(146, 61, 152, 0.9));
+            padding: 40px 0; text-align: center;
+            border-bottom: 6px solid var(--spike-yellow); color: white;
+        }
+        header h1 { margin: 0; font-size: 5rem; text-transform: uppercase; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
+
+        nav.main-nav {
+            width: 100%; display: flex; flex-wrap: wrap; justify-content: center;
+            background: var(--spike-blue); padding: 10px;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .nav-btn {
+            background: rgba(255,255,255,0.2); border: 2px solid white;
+            color: white; padding: 10px 18px; margin: 5px;
+            border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem;
+        }
+        .nav-btn.active { background: var(--spike-yellow); color: black; border-color: black; }
+
+        /* CONTENEDOR CENTRADO (LO QUE MARCASTE EN ROJO) */
+        .container { 
+            max-width: 950px; 
+            margin: 40px auto 150px auto; 
+            padding: 0 20px; 
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .module-accordion {
+            width: 100%;
+            background: var(--card-white); border-radius: 15px;
+            margin-bottom: 25px; border: 1px solid #bbdefb;
+            overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .module-header {
+            padding: 20px 25px; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            background: #f5f5f5; border-bottom: 4px solid var(--spike-yellow);
+        }
+        .module-header h2 { margin: 0; color: var(--spike-blue); font-size: 1.5rem; }
+
+        .module-content { padding: 0 25px; max-height: 0; overflow: hidden; transition: all 0.5s ease-in-out; }
+        .module-content.open { padding: 30px 25px; max-height: 50000px; }
+
+        /* ICONOS */
+        .grid-icons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 30px 0; }
+        .icon-card { 
+            background: #fff; border-radius: 20px; padding: 25px 10px; 
+            text-align: center; border: 1.5px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .icon-card i { font-size: 4rem; color: #3f72af; margin-bottom: 15px; }
+        .icon-card span { display: block; color: #536162; font-weight: bold; font-size: 1.1rem; }
+
+        /* LEYES (CUADRO AMARILLO BORDE MORADO) */
+        .laws-box {
+            background: #fff9c4; padding: 25px; border-radius: 10px;
+            border-left: 12px solid var(--spike-purple); margin: 30px 0;
+            color: #333; font-size: 1.15rem;
+        }
+
+        /* CASOS */
+        .case-study {
+            background: #f8fafd; padding: 25px; border-radius: 10px;
+            margin-top: 20px; border-left: 8px solid var(--spike-blue); color: #333;
+        }
+        .opt-btn { background: #4a7ab5; color: white; border: none; padding: 10px 30px; margin: 15px 10px 10px 0; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .why-input { width: 100%; padding: 12px; border-radius: 8px; border: 1.5px solid #ccc; margin-top: 10px; font-family: inherit; }
+        .feedback { margin-top: 15px; padding: 15px; border-radius: 8px; display: none; font-weight: bold; background: white; border: 1px solid #ddd; }
+
+        /* ACTIVIDADES Y BOTONES BONITOS */
+        .activity-links {
+            text-align: center; margin: 30px 0; padding: 25px;
+            border: 3px dashed var(--spike-purple); border-radius: 15px;
+            background: #f3e5f5; display: flex; flex-direction: column; gap: 15px; align-items: center;
+        }
+        .score-input { padding: 10px; border-radius: 8px; border: 2px solid var(--spike-purple); width: 250px; text-align: center; font-weight: bold; }
+
+        .btn-ext {
+            display: inline-block; width: 90%; max-width: 450px;
+            padding: 15px 25px; border-radius: 50px; text-decoration: none;
+            font-weight: bold; text-align: center; font-size: 1.1rem; transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .btn-canva { background: #00C4CC; color: white; border: 2px solid white; }
+        .btn-wordwall { background: var(--spike-purple); color: white; border: 2px solid white; }
+        .btn-tips { background: linear-gradient(135deg, var(--spike-yellow), #f1c40f); color: black; border: 2px solid #000; }
+        .btn-reto { background: linear-gradient(135deg, #2ecc71, #27ae60); color: white; border: 2px solid white; }
+        .btn-prog { background: #FF5722; color: white; border: 2px solid white; }
+
+        /* MÓDULO 3 - 3 COLUMNAS */
+        .comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+        .comp-card {
+            background: #ffffff; border-radius: 15px; border: 1.5px solid #ddd; border-top: 10px solid var(--spike-blue);
+            display: flex; flex-direction: column; padding: 20px; cursor: pointer; transition: 0.3s;
+        }
+        .comp-card h3 { color: #112d4e; margin-top: 0; font-size: 1.25rem; }
+        .example-box {
+            background: #fffde7; padding: 10px; border-radius: 8px; border-left: 5px solid var(--spike-yellow);
+            margin-top: 10px; font-weight: bold; font-size: 0.85rem;
+        }
+        .sub-buttons { display: none; flex-direction: column; margin-top: 10px; gap: 8px; }
+        .sub-buttons.active { display: flex; }
+
+        #finish-web-btn {
+            position: fixed; bottom: 20px; right: 20px;
+            background: var(--error); color: white; border: 3px solid white;
+            padding: 20px 30px; border-radius: 50px; font-weight: bold; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="login-overlay">
+    <div class="login-box">
+        <h1>Bienvenidos equipo</h1>
+        <p>Escriban el <strong>Nombre de su Grupo</strong>:</p>
+        <input type="text" id="group-name-input" placeholder="Ej: Los Mecatrónicos">
+        <button class="btn-side" style="width: 100%; margin-top:10px; font-size:1.2rem" onclick="startSession()">ENTRAR A LA CLASE</button>
+    </div>
+</div>
+
+<div class="sidebar-left" id="sidebar" style="display:none;">
+    <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/dahikssl-sy" target="_blank" class="btn-side"><i class="fas fa-heart"></i> Normas de cuidado</a>
+    <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/dahiq5bvr8i" target="_blank" class="btn-side"><i class="fas fa-box"></i> ¿Qué hay en la caja?</a>
+</div>
+
+<header>
+    <h1>Robótica</h1>
+    <div style="text-align: center; font-size: 1.4rem; font-weight: bold; color: var(--spike-yellow);">MSc. Mary Cruz CM</div>
+</header>
+
+<nav class="main-nav">
+    <button class="nav-btn active">1: Introducir</button>
+    <button class="nav-btn">2: Empatizar</button>
+    <button class="nav-btn">3: Definir</button>
+    <button class="nav-btn">4: Idear</button>
+    <button class="nav-btn">5: Prototipar</button>
+    <button class="nav-btn">6: Probar</button>
+    <button class="nav-btn">7: Crear</button>
+</nav>
+
+<div class="container">
+
+    <!-- MODULO 1 -->
+    <div class="module-accordion">
+        <div class="module-header" onclick="toggleModule(this)">
+            <h2>1. Definición de robótica</h2>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="module-content">
+            <h3 style="color:var(--spike-blue)">1.1. ¿Qué es un robot?</h3>
+            <p>Un robot es una máquina programable que puede realizar tareas de forma automática o controlada, utilizando sensores, un sistema de control y actuadores (movimiento).</p>
+            <p><strong>Es decir:</strong> Un robot piensa (programación), percibe (sensores) y actúa (motores o mecanismos).</p>
+            <div class="grid-icons">
+                <div class="icon-card"><i class="fas fa-industry"></i><br><span>Robot Industrial</span></div>
+                <div class="icon-card"><i class="fas fa-compact-disc"></i><br><span>Aspiradora Automática</span></div>
+                <div class="icon-card"><i class="fas fa-robot"></i><br><span>Robot Humanoide</span></div>
+            </div>
+
+            <h3 style="color:var(--spike-blue); margin-top:40px">1.2. ¿Qué no es un robot?</h3>
+            <p>No todo lo que es electrónico o tiene movimiento es un robot. Un objeto NO es robot si: No está programado | No toma decisiones | No tiene sensores | Solo funciona con control directo del humano.</p>
+            <div class="grid-icons">
+                <div class="icon-card"><i class="fas fa-blender"></i><br><span>Batidora de mano</span></div>
+                <div class="icon-card"><i class="fas fa-fan"></i><br><span>Ventilador común</span></div>
+                <div class="icon-card"><i class="fas fa-flashlight"></i><br><span>Linterna</span></div>
+            </div>
+
+            <div class="activity-links">
+                <a href="https://canva.link/00kmqvn6y0k3guq" target="_blank" class="btn-ext btn-canva">Ver Introducción en Canva</a>
+                <a href="https://wordwall.net/es/resource/88782700/rob%c3%b3tica" target="_blank" class="btn-ext btn-wordwall">Juego Wordwall</a>
+            </div>
+
+            <h3 style="color:var(--spike-blue); margin-top:40px">1.3. Las leyes de la robótica</h3>
+            <div class="laws-box">
+                <p>1. Un robot no hará daño a un ser humano, ni por inacción permitirá que un ser humano sufra daño.</p>
+                <p>2. Un robot debe cumplir las órdenes dadas por los seres humanos, a excepción de aquellas que entren en conflicto con la primera ley.</p>
+                <p>3. Un robot debe proteger su propia existencia en la medida en que esta protección no entre en conflicto con la primera o con la segunda ley.</p>
+            </div>
+
+            <h3 style="color:var(--spike-blue)">Análisis de casos</h3>
+            
+            <div class="case-study">
+                <p><strong>a.</strong> Un robot asistente doméstico está en una casa con un niño pequeño. Mientras el robot está limpiando, el niño corre hacia el pasillo donde hay una puerta corrediza de vidrio. El robot ve que el niño está a punto de caer contra la puerta de vidrio y, para evitar que se golpee, lo empuja hacia un lado. En su acción, el robot empuja al niño con tanta fuerza que este cae al suelo, pero no se hace daño.</p>
+                <p>¿El caso anterior cumple con las leyes de la robótica?</p>
+                <button class="opt-btn" onclick="checkCase('A', true)">si</button><button class="opt-btn" onclick="checkCase('A', false)">no</button>
+                <textarea id="whyA" class="why-input" placeholder="¿Por qué?"></textarea>
+                <div id="fbA" class="feedback"></div>
+            </div>
+
+            <div class="case-study">
+                <p><strong>b.</strong> Un robot está programado para seguir las órdenes de su dueño, un científico. El dueño le ordena al robot que realice un experimento con sustancias químicas peligrosas. Aunque el robot detecta que el procedimiento podría ser riesgoso para un colega que está cerca, decide seguir las órdenes sin intervenir para detener el experimento.</p>
+                <p>¿El caso anterior cumple con las leyes de la robótica?</p>
+                <button class="opt-btn" onclick="checkCase('B', true)">si</button><button class="opt-btn" onclick="checkCase('B', false)">no</button>
+                <textarea id="whyB" class="why-input" placeholder="¿Por qué?"></textarea>
+                <div id="fbB" class="feedback"></div>
+            </div>
+
+            <div class="case-study">
+                <p><strong>c.</strong> Un robot de seguridad detecta que una persona intenta entrar a una zona restringida. Para detenerla, activa una alarma sonora muy fuerte y bloquea automáticamente la puerta. La persona se asusta, pero no sufre ningún daño.</p>
+                <p>¿El caso anterior cumple con las leyes de la robótica?</p>
+                <button class="opt-btn" onclick="checkCase('C', true)">si</button><button class="opt-btn" onclick="checkCase('C', false)">no</button>
+                <textarea id="whyC" class="why-input" placeholder="¿Por qué?"></textarea>
+                <div id="fbC" class="feedback"></div>
+            </div>
+
+            <div class="case-study">
+                <p><strong>d.</strong> Un robot asistente en un hospital recibe la orden de un médico de suministrar un medicamento a un paciente. Sin embargo, el robot detecta que el paciente es alérgico a ese medicamento, pero aun así obedece la orden y lo administra.</p>
+                <p>¿El caso anterior cumple con las leyes de la robótica?</p>
+                <button class="opt-btn" onclick="checkCase('D', true)">si</button><button class="opt-btn" onclick="checkCase('D', false)">no</button>
+                <textarea id="whyD" class="why-input" placeholder="¿Por qué?"></textarea>
+                <div id="fbD" class="feedback"></div>
+            </div>
+
+            <div class="case-study">
+                <p><strong>e.</strong> Un robot de limpieza está programado para mantener una fábrica ordenada. Mientras limpia, detecta un derrame de aceite que podría provocar una caída. Decide detener su tarea principal y limpiar el derrame primero para evitar accidentes.</p>
+                <p>¿El caso anterior cumple con las leyes de la robótica?</p>
+                <button class="opt-btn" onclick="checkCase('E', true)">si</button><button class="opt-btn" onclick="checkCase('E', false)">no</button>
+                <textarea id="whyE" class="why-input" placeholder="¿Por qué?"></textarea>
+                <div id="fbE" class="feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULO 2 -->
+    <div class="module-accordion">
+        <div class="module-header" onclick="toggleModule(this)">
+            <h2>2. Tipos de robots</h2>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="module-content">
+            <h2 style="text-align:center;">Clasificación de Robots</h2>
+            <div style="background:#fffde7; padding:20px; border-radius:15px; margin-bottom:20px; border:1px solid var(--spike-yellow)">
+                <p><strong>1) SEGÚN SU APLICACIÓN:</strong> Los robots pueden clasificarse por el tipo de tarea que realizan. Algunas categorías comunes incluyen: <br>
+                - Robots industriales: manufactura. <br>
+                - Robots de servicio: salud, educación y atención. <br>
+                - Robots móviles: exploración espacial o autónomos.</p>
+                <p><strong>2) SEGÚN SU CONFIGURACIÓN FÍSICA:</strong> La configuración física también es un criterio de clasificación importante. <br>
+                - Robots articulados: múltiples articulaciones. <br>
+                - Robots cartesianos: sistema XYZ (impresión 3D). <br>
+                - Robots móviles: movimientos rápidos en plano horizontal.</p>
+                <p><strong>3) SEGÚN SU NIVEL DE AUTONOMÍA:</strong> Grado de autonomía. <br>
+                - Robots autónomos: operan independientemente (IA). <br>
+                - Robots teleoperados: controlados remotamente. <br>
+                - Robots colaborativos (cobots): mano a mano con humanos.</p>
+            </div>
+
+            <div class="activity-links">
+                <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/clasificacion-de-robotmcm" target="_blank" class="btn-ext btn-wordwall" style="background:#FF4785">Actividad: Clasificación de Robots</a>
+                <input type="text" id="score-class" class="score-input" placeholder="Tu puntaje clasificación">
+                
+                <h4 style="margin-top:20px">Recursos de construcción:</h4>
+                <a href="https://aprende-imagina-crea.my.canva.site/dahimxacjv4" target="_blank" class="btn-ext btn-tips">Ver Consejos de Estructuras</a>
+                <a href="https://aprende-imagina-crea.my.canva.site/dahimxigybu" target="_blank" class="btn-ext btn-reto"><i class="fas fa-trophy"></i> Reto 1</a>
+                <a href="https://aprende-imagina-crea.my.canva.site/dahim-rctq0" target="_blank" class="btn-ext btn-reto"><i class="fas fa-trophy"></i> Reto 2</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULO 3 -->
+    <div class="module-accordion">
+        <div class="module-header" onclick="toggleModule(this)">
+            <h2>3. Componentes de un robot</h2>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="module-content">
+            <div class="comp-grid">
+                <div class="comp-card" onclick="toggleSub('s1')">
+                    <h3>◆ 1. Controlador</h3>
+                    <p>Es el cerebro del robot. Recibe instrucciones, procesa información y envía órdenes.</p>
+                    <div id="s1" class="sub-buttons">
+                        <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/componentes-de-lego-spiker" target="_blank" class="btn-ext btn-canva">Parte 1: Componentes</a>
+                        <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/controladores-actividad" target="_blank" class="btn-ext btn-canva">Parte 2: Componentes</a>
+                    </div>
+                    <div class="example-box">💡 Ejemplo: El hub de LEGO SPIKE Prime</div>
+                </div>
+                <div class="comp-card">
+                    <h3>◆ 2. Cuerpo (Armazón)</h3>
+                    <p>Es la estructura física que sostiene las piezas y da forma al robot.</p>
+                    <div class="example-box">💡 Ejemplo: Chasis, ruedas, piezas LEGO</div>
+                </div>
+                <div class="comp-card" onclick="toggleSub('s2')">
+                    <h3>◆ 3. Programación</h3>
+                    <p>Instrucciones de código que definen acciones y cuándo actuar.</p>
+                    <div id="s2" class="sub-buttons">
+                        <a href="https://actividad-globalización.my.canva.site/dahiq470zsq" target="_blank" class="btn-ext btn-prog">Intro Programación</a>
+                        <a href="https://actividad-globalización.my.canva.site/dahikzgeivo" target="_blank" class="btn-ext btn-prog">Bloques de Motor</a>
+                        <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/dahiq8m4jnk" target="_blank" class="btn-ext btn-prog">Bloques de Eventos</a>
+                    </div>
+                    <div class="example-box">💡 Ejemplo: Bloques de programación</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button id="finish-web-btn" onclick="finishAndDownload()">CERRAR WEB Y DESCARGAR INFORME</button>
+
+<script>
+    function startSession() {
+        const input = document.getElementById('group-name-input');
+        if(input.value.trim()==="") alert("Nombre grupo!");
+        else { document.getElementById('login-overlay').style.display='none'; document.getElementById('sidebar').style.display='flex'; document.getElementById('finish-web-btn').style.display='block'; }
+    }
+    function toggleModule(h) { h.nextElementSibling.classList.toggle('open'); }
+    function toggleSub(id) { document.getElementById(id).classList.toggle('active'); event.stopPropagation(); }
+    
+    function checkCase(id, val) {
+        const f = document.getElementById('fb' + id); f.style.display = 'block';
+        let correct = (id==='A' || id==='C' || id==='E') ? val : !val;
+        f.innerHTML = correct ? "✅ Correcto" : "❌ Incorrecto";
+        f.style.color = correct ? "var(--success)" : "var(--error)";
+    }
+
+    function finishAndDownload() {
+        let name = document.getElementById('group-name-input').value;
+        let blob = new Blob(["Reporte de " + name], { type: 'text/plain' });
+        let link = document.createElement('a'); link.href = window.URL.createObjectURL(blob);
+        link.download = `Reporte_${name}.txt`; link.click();
+    }
+</script>
+</body>
+</html>
