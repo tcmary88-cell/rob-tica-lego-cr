@@ -39,18 +39,18 @@
             font-family: 'Segoe UI', Tahoma, sans-serif;
             margin: 0; background-color: var(--bg-celeste);
             color: var(--text-dark); line-height: 1.6;
+            display: flex; flex-direction: column; align-items: center;
         }
 
         /* BARRA LATERAL IZQUIERDA */
         .sidebar-left {
-            position: fixed; left: 20px; top: 350px;
-            width: 180px; display: flex; flex-direction: column; gap: 15px;
+            position: fixed; left: 15px; top: 50%; transform: translateY(-50%);
+            width: 175px; display: flex; flex-direction: column; gap: 15px;
             z-index: 900;
         }
         .btn-side {
-            background: linear-gradient(135deg, white, #f9f9f9);
-            border: 3px solid var(--spike-blue);
-            color: var(--text-dark); padding: 12px; border-radius: 15px;
+            background: white; border: 2.5px solid var(--spike-blue);
+            color: var(--text-dark); padding: 12px; border-radius: 12px;
             font-weight: bold; font-size: 0.85rem; text-decoration: none;
             text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: 0.3s;
@@ -76,116 +76,108 @@
         }
         .nav-btn.active { background: var(--spike-yellow); color: black; border-color: black; }
 
-        /* CONTENEDOR CENTRADO (LO QUE MARCASTE EN ROJO) */
+        /* CONTENEDOR BASE CENTRADO */
         .container { 
-            max-width: 950px; 
-            margin: 40px auto 150px auto; 
+            max-width: 1000px; 
+            margin: 30px auto 150px 210px; 
             padding: 0 20px; 
-            display: flex; flex-direction: column; align-items: center;
+            text-align: left; 
         }
 
         .module-accordion {
-            width: 100%;
             background: var(--card-white); border-radius: 15px;
-            margin-bottom: 25px; border: 1px solid #bbdefb;
+            margin-bottom: 20px; border: 1px solid #bbdefb;
             overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: left;
         }
         .module-header {
-            padding: 20px 25px; cursor: pointer;
+            padding: 15px 25px; cursor: pointer;
             display: flex; justify-content: space-between; align-items: center;
-            background: #f5f5f5; border-bottom: 4px solid var(--spike-yellow);
+            background: #f5f5f5; border-bottom: 3px solid var(--spike-yellow);
         }
-        .module-header h2 { margin: 0; color: var(--spike-blue); font-size: 1.5rem; }
+        .module-header h2 { margin: 0; color: var(--spike-blue); font-size: 1.4rem; text-align: left; }
 
-        .module-content { padding: 0 25px; max-height: 0; overflow: hidden; transition: all 0.5s ease-in-out; }
-        .module-content.open { padding: 30px 25px; max-height: 50000px; }
+        .module-content { padding: 0 25px; max-height: 0; overflow: hidden; transition: all 0.5s ease-in-out; text-align: left; }
+        .module-content.open { padding: 25px; max-height: 60000px; }
 
         /* ICONOS */
-        .grid-icons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 30px 0; }
+        .grid-icons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0; }
         .icon-card { 
-            background: #fff; border-radius: 20px; padding: 25px 10px; 
-            text-align: center; border: 1.5px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background: #fff; border-radius: 15px; padding: 25px 10px; 
+            text-align: center; border: 1.5px solid #eee; 
         }
-        .icon-card i { font-size: 4rem; color: #3f72af; margin-bottom: 15px; }
-        .icon-card span { display: block; color: #536162; font-weight: bold; font-size: 1.1rem; }
+        .icon-card i { font-size: 3.5rem; color: #3f72af; margin-bottom: 15px; }
+        .icon-card span { display: block; color: #536162; font-weight: 500; font-size: 1.1rem; }
 
-        /* LEYES (CUADRO AMARILLO BORDE MORADO) */
         .laws-box {
             background: #fff9c4; padding: 25px; border-radius: 10px;
-            border-left: 12px solid var(--spike-purple); margin: 30px 0;
-            color: #333; font-size: 1.15rem;
+            border-left: 10px solid var(--spike-purple); margin: 30px 0;
+            color: #333; font-size: 1.1rem; text-align: left;
         }
 
-        /* CASOS */
         .case-study {
             background: #f8fafd; padding: 25px; border-radius: 10px;
             margin-top: 20px; border-left: 8px solid var(--spike-blue); color: #333;
+            text-align: left;
         }
         .opt-btn { background: #4a7ab5; color: white; border: none; padding: 10px 30px; margin: 15px 10px 10px 0; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        .why-input { width: 100%; padding: 12px; border-radius: 8px; border: 1.5px solid #ccc; margin-top: 10px; font-family: inherit; }
-        .feedback { margin-top: 15px; padding: 15px; border-radius: 8px; display: none; font-weight: bold; background: white; border: 1px solid #ddd; }
+        .why-input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; margin-top: 10px; font-family: inherit; box-sizing: border-box;}
+        .feedback { margin-top: 10px; padding: 15px; border-radius: 8px; display: none; font-weight: bold; background: white; border: 1px solid #ddd; }
 
-        /* ACTIVIDADES Y BOTONES BONITOS */
         .activity-links {
             text-align: center; margin: 30px 0; padding: 25px;
             border: 3px dashed var(--spike-purple); border-radius: 15px;
-            background: #f3e5f5; display: flex; flex-direction: column; gap: 15px; align-items: center;
+            background: #f3e5f5; display: flex; flex-direction: column; gap: 12px; align-items: center;
         }
         .score-input { padding: 10px; border-radius: 8px; border: 2px solid var(--spike-purple); width: 250px; text-align: center; font-weight: bold; }
 
         .btn-ext {
-            display: inline-block; width: 90%; max-width: 450px;
-            padding: 15px 25px; border-radius: 50px; text-decoration: none;
-            font-weight: bold; text-align: center; font-size: 1.1rem; transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: inline-block; width: 95%; padding: 12px; border-radius: 50px;
+            text-decoration: none; font-weight: bold; text-align: center; transition: 0.3s;
+            font-size: 1.1rem;
         }
-        .btn-canva { background: #00C4CC; color: white; border: 2px solid white; }
-        .btn-wordwall { background: var(--spike-purple); color: white; border: 2px solid white; }
-        .btn-tips { background: linear-gradient(135deg, var(--spike-yellow), #f1c40f); color: black; border: 2px solid #000; }
-        .btn-reto { background: linear-gradient(135deg, #2ecc71, #27ae60); color: white; border: 2px solid white; }
-        .btn-prog { background: #FF5722; color: white; border: 2px solid white; }
+        .btn-canva { background: #00C4CC; color: white; border: 2px solid white; margin: 5px 0;}
+        .btn-prog { background: #FF5722; color: white; border: 2px solid white; margin: 5px 0;}
+        .btn-wordwall { background: var(--spike-purple); color: white; border: 2px solid white; margin: 5px 0;}
+        .btn-tips { background: var(--spike-yellow); color: black; border: 2px solid black; margin: 5px 0;}
+        .btn-reto { background: #2ecc71; color: white; border: 2px solid white; margin: 5px 0;}
 
-        /* MÓDULO 3 - 3 COLUMNAS */
         .comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
         .comp-card {
-            background: #ffffff; border-radius: 15px; border: 1.5px solid #ddd; border-top: 10px solid var(--spike-blue);
-            display: flex; flex-direction: column; padding: 20px; cursor: pointer; transition: 0.3s;
+            background: #ffffff; border-radius: 15px; border: 1.5px solid #ddd; border-top: 8px solid var(--spike-blue);
+            display: flex; flex-direction: column; padding: 20px; cursor: pointer; text-align: left;
         }
-        .comp-card h3 { color: #112d4e; margin-top: 0; font-size: 1.25rem; }
         .example-box {
             background: #fffde7; padding: 10px; border-radius: 8px; border-left: 5px solid var(--spike-yellow);
             margin-top: 10px; font-weight: bold; font-size: 0.85rem;
         }
-        .sub-buttons { display: none; flex-direction: column; margin-top: 10px; gap: 8px; }
-        .sub-buttons.active { display: flex; }
 
         #finish-web-btn {
             position: fixed; bottom: 20px; right: 20px;
             background: var(--error); color: white; border: 3px solid white;
-            padding: 20px 30px; border-radius: 50px; font-weight: bold; cursor: pointer;
+            padding: 20px 30px; border-radius: 50px; font-weight: bold;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001; display: none;
         }
+        .math-formula { background: #f0f4f8; padding: 15px; border-radius: 8px; text-align: center; font-family: monospace; font-size: 1.4rem; margin: 10px 0; }
     </style>
 </head>
 <body>
 
 <div id="login-overlay">
     <div class="login-box">
-        <h1>Bienvenidos equipo</h1>
-        <p>Escriban el <strong>Nombre de su Grupo</strong>:</p>
-        <input type="text" id="group-name-input" placeholder="Ej: Los Mecatrónicos">
-        <button class="btn-side" style="width: 100%; margin-top:10px; font-size:1.2rem" onclick="startSession()">ENTRAR A LA CLASE</button>
+        <h2>Ingreso de Grupo</h2>
+        <input type="text" id="group-name-input" placeholder="Nombre de su grupo...">
+        <button class="btn-side" style="width: 100%; margin-top:10px" onclick="startSession()">ENTRAR</button>
     </div>
 </div>
 
 <div class="sidebar-left" id="sidebar" style="display:none;">
-    <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/dahikssl-sy" target="_blank" class="btn-side"><i class="fas fa-heart"></i> Normas de cuidado</a>
-    <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/dahiq5bvr8i" target="_blank" class="btn-side"><i class="fas fa-box"></i> ¿Qué hay en la caja?</a>
+    <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/dahikssl-sy" target="_blank" class="btn-side">Normas de cuidado</a>
+    <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/dahiq5bvr8i" target="_blank" class="btn-side">¿Qué hay en la caja?</a>
 </div>
 
 <header>
     <h1>Robótica</h1>
-    <div style="text-align: center; font-size: 1.4rem; font-weight: bold; color: var(--spike-yellow);">MSc. Mary Cruz CM</div>
+    <div style="text-align: center; font-size: 1.3rem; font-weight: bold; color: var(--spike-yellow);">MSc. Mary Cruz CM</div>
 </header>
 
 <nav class="main-nav">
@@ -226,7 +218,7 @@
 
             <div class="activity-links">
                 <a href="https://canva.link/00kmqvn6y0k3guq" target="_blank" class="btn-ext btn-canva">Ver Introducción en Canva</a>
-                <a href="https://wordwall.net/es/resource/88782700/rob%c3%b3tica" target="_blank" class="btn-ext btn-wordwall">Juego Wordwall</a>
+                <a href="https://wordwall.net/es/resource/88782700/rob%c3%b3tica" target="_blank" class="btn-ext btn-wordwall" style="background:var(--spike-purple)">Juego Wordwall</a>
             </div>
 
             <h3 style="color:var(--spike-blue); margin-top:40px">1.3. Las leyes de la robótica</h3>
@@ -288,26 +280,28 @@
         </div>
         <div class="module-content">
             <h2 style="text-align:center;">Clasificación de Robots</h2>
-            <div style="background:#fffde7; padding:20px; border-radius:15px; margin-bottom:20px; border:1px solid var(--spike-yellow)">
+            <div style="background:#fffde7; padding:20px; border-radius:15px; border:1.5px solid var(--spike-yellow); margin-bottom:20px">
                 <p><strong>1) SEGÚN SU APLICACIÓN:</strong> Los robots pueden clasificarse por el tipo de tarea que realizan. Algunas categorías comunes incluyen: <br>
-                - Robots industriales: manufactura. <br>
-                - Robots de servicio: salud, educación y atención. <br>
-                - Robots móviles: exploración espacial o autónomos.</p>
+                - Robots industriales: manufactura, soldadura, pintura y ensamblaje. <br>
+                - Robots de servicio: salud, educación y atención al cliente. <br>
+                - Robots móviles: exploración espacial o vehículos autónomos.</p>
+                
                 <p><strong>2) SEGÚN SU CONFIGURACIÓN FÍSICA:</strong> La configuración física también es un criterio de clasificación importante. <br>
-                - Robots articulados: múltiples articulaciones. <br>
-                - Robots cartesianos: sistema XYZ (impresión 3D). <br>
-                - Robots móviles: movimientos rápidos en plano horizontal.</p>
-                <p><strong>3) SEGÚN SU NIVEL DE AUTONOMÍA:</strong> Grado de autonomía. <br>
-                - Robots autónomos: operan independientemente (IA). <br>
-                - Robots teleoperados: controlados remotamente. <br>
-                - Robots colaborativos (cobots): mano a mano con humanos.</p>
+                - Robots articulados: múltiples articulaciones rotativas o lineales. <br>
+                - Robots cartesianos: sistema de coordenadas XYZ (impresión 3D). <br>
+                - Robots móviles: especializados en movimientos rápidos en plano horizontal, usados en ensamblaje electrónico.</p>
+                
+                <p><strong>3) SEGÚN SU NIVEL DE AUTONOMÍA:</strong> Otro enfoque para clasificar robots es por su grado de autonomía. <br>
+                - Robots autónomos: operan independientemente con IA. <br>
+                - Robots teleoperados: controlados remotamente por humanos. <br>
+                - Robots colaborativos (cobots): diseñado para trabajar mano a mano con humanos.</p>
             </div>
 
             <div class="activity-links">
                 <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/clasificacion-de-robotmcm" target="_blank" class="btn-ext btn-wordwall" style="background:#FF4785">Actividad: Clasificación de Robots</a>
                 <input type="text" id="score-class" class="score-input" placeholder="Tu puntaje clasificación">
                 
-                <h4 style="margin-top:20px">Recursos de construcción:</h4>
+                <p><strong>Recursos de construcción:</strong></p>
                 <a href="https://aprende-imagina-crea.my.canva.site/dahimxacjv4" target="_blank" class="btn-ext btn-tips">Ver Consejos de Estructuras</a>
                 <a href="https://aprende-imagina-crea.my.canva.site/dahimxigybu" target="_blank" class="btn-ext btn-reto"><i class="fas fa-trophy"></i> Reto 1</a>
                 <a href="https://aprende-imagina-crea.my.canva.site/dahim-rctq0" target="_blank" class="btn-ext btn-reto"><i class="fas fa-trophy"></i> Reto 2</a>
@@ -323,10 +317,10 @@
         </div>
         <div class="module-content">
             <div class="comp-grid">
-                <div class="comp-card" onclick="toggleSub('s1')">
+                <div class="comp-card">
                     <h3>◆ 1. Controlador</h3>
                     <p>Es el cerebro del robot. Recibe instrucciones, procesa información y envía órdenes.</p>
-                    <div id="s1" class="sub-buttons">
+                    <div style="margin-top:10px">
                         <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/componentes-de-lego-spiker" target="_blank" class="btn-ext btn-canva">Parte 1: Componentes</a>
                         <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/controladores-actividad" target="_blank" class="btn-ext btn-canva">Parte 2: Componentes</a>
                     </div>
@@ -337,19 +331,65 @@
                     <p>Es la estructura física que sostiene las piezas y da forma al robot.</p>
                     <div class="example-box">💡 Ejemplo: Chasis, ruedas, piezas LEGO</div>
                 </div>
-                <div class="comp-card" onclick="toggleSub('s2')">
+                <div class="comp-card">
                     <h3>◆ 3. Programación</h3>
                     <p>Instrucciones de código que definen acciones y cuándo actuar.</p>
-                    <div id="s2" class="sub-buttons">
-                        <a href="https://actividad-globalización.my.canva.site/dahiq470zsq" target="_blank" class="btn-ext btn-prog">Intro Programación</a>
-                        <a href="https://actividad-globalización.my.canva.site/dahikzgeivo" target="_blank" class="btn-ext btn-prog">Bloques de Motor</a>
-                        <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/dahiq8m4jnk" target="_blank" class="btn-ext btn-prog">Bloques de Eventos</a>
+                    <div style="margin-top:10px">
+                        <a href="https://actividad-globalización.my.canva.site/dahiq470zsq" target="_blank" class="btn-ext btn-prog" style="background:#FF5722; color:white">Intro Programación</a>
+                        <a href="https://actividad-globalización.my.canva.site/dahikzgeivo" target="_blank" class="btn-ext btn-prog" style="background:#FF5722; color:white">Bloques de Motor</a>
+                        <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/dahiq8m4jnk" target="_blank" class="btn-ext btn-prog" style="background:#FF5722; color:white">Bloques de Eventos</a>
                     </div>
                     <div class="example-box">💡 Ejemplo: Bloques de programación</div>
                 </div>
             </div>
+            
+            <div class="case-study" style="background:white; border-top: 8px solid var(--spike-blue); margin-top:40px">
+                <h3 style="color:var(--text-dark)">🔧 4. Cálculos matemáticos para optimizar el uso de motores</h3>
+                <h4 style="color:var(--spike-blue)">⚡ Velocidad</h4>
+                <p>La velocidad es una magnitud que indica qué tan rápido se desplaza un objeto en un determinado tiempo. Es una relación entre la distancia recorrida y el tiempo empleado.</p>
+                <div class="math-formula">v = d / t</div>
+                <p><small>v = velocidad | d = distancia | t = tiempo</small></p>
+
+                <h4 style="color:var(--spike-blue); margin-top:20px;">🔄 Rotaciones</h4>
+                <p>Las rotaciones representan el número de vueltas completas que realiza un objeto, como una rueda o un motor. Este concepto es fundamental para comprender el movimiento en sistemas mecánicos.</p>
+                <div class="math-formula">Rotaciones = Distancia / Circunferencia</div>
+                <div class="example-box">C = 2πr | d = 2r ≈ 13.40 | C ≈ 42.10 | r = 6.70</div>
+
+                <h4 style="color:var(--spike-blue); margin-top:20px;">🔋 Potencia</h4>
+                <p>La potencia es la cantidad de trabajo realizado en un determinado tiempo. Indica qué tan rápido se ejecuta una acción o se transfiere energía.</p>
+                <div class="math-formula">P = W / t</div>
+                <div class="math-formula">P = F · v</div>
+                
+                <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/calculos-matematicos-para-optimizar-uso-de-motores" target="_blank" class="btn-ext btn-prog" style="width:auto; padding:10px 30px">Ejercicios de velocidad-rotaciones-potencia</a>
+            </div>
+
+            <div class="case-study" style="background:white; border-top: 8px solid var(--spike-blue);">
+                <h3 style="color:var(--text-dark)">🔧 5. Mecánica aplicada a la robótica</h3>
+                <h4 style="color:var(--spike-blue)">⚙️ Sistemas mecánicos</h4>
+                <p>Los sistemas mecánicos son conjuntos de elementos que transmiten o transforman movimiento y fuerza.</p>
+                
+                <h4 style="color:var(--spike-blue); margin-top:20px;">🔩 Palancas</h4>
+                <p>Amplifican la fuerza mediante un punto de apoyo (fulcro).</p>
+                <ul style="list-style:none; padding-left:0">
+                    <li>🔹 <strong>Primera clase:</strong> Fulcro entre fuerza y carga.</li>
+                    <li>🔹 <strong>Segunda clase:</strong> Resistencia entre fulcro y fuerza.</li>
+                    <li>🔹 <strong>Tercera clase:</strong> Fuerza entre fulcro y resistencia.</li>
+                </ul>
+
+                <h4 style="color:var(--spike-blue); margin-top:20px;">⭕ Poleas</h4>
+                <p>Ruedas acanaladas para transmitir fuerza y levantar peso.</p>
+
+                <h4 style="color:var(--spike-blue); margin-top:20px;">📐 Planos inclinados</h4>
+                <p>Superficie diagonal para elevar objetos con menos fuerza.</p>
+
+                <h4 style="color:var(--spike-blue); margin-top:20px;">📐 Calzos</h4>
+                <p>Cuñas para inmovilizar o ajustar niveles.</p>
+
+                <a href="https://xn--actividad-globalizacin-ggc.my.canva.site/mecanica-aplicada-a-la-robotica" target="_blank" class="btn-ext btn-prog" style="width:auto; padding:10px 30px">Ver Sistemas Mecánicos</a>
+            </div>
         </div>
     </div>
+
 </div>
 
 <button id="finish-web-btn" onclick="finishAndDownload()">CERRAR WEB Y DESCARGAR INFORME</button>
@@ -371,10 +411,11 @@
     }
 
     function finishAndDownload() {
-        let name = document.getElementById('group-name-input').value;
-        let blob = new Blob(["Reporte de " + name], { type: 'text/plain' });
+        let name = document.getElementById('group-name-input');
+        let content = "Reporte de " + name.value;
+        let blob = new Blob([content], { type: 'text/plain' });
         let link = document.createElement('a'); link.href = window.URL.createObjectURL(blob);
-        link.download = `Reporte_${name}.txt`; link.click();
+        link.download = `Reporte_${name.value}.txt`; link.click();
     }
 </script>
 </body>
